@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This project is a small blogging platform built using Next.js 14, Tailwind CSS for styling, and JSONPlaceholder API for fetching and posting data. The platform allows users to view a list of blog posts, create new posts, and read individual posts in detail.
 
-## Getting Started
+Features
 
-First, run the development server:
+1. Landing Page:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+   - Displays a list of blog posts with titles and a brief preview of the content.
+   - Includes pagination for navigating through posts.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Post Creation Page:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+   - Form with fields for title, content, and author name.
+   - Form validation to ensure data correctness.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+3. Post Detail Page:
 
-## Learn More
+   - Shows the full content of a blog post when clicked on from the list.
 
-To learn more about Next.js, take a look at the following resources:
+4. SEO Optimization:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   - Meta tags and best SEO practices implemented for better search engine visibility.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+5. Error Handling:
 
-## Deploy on Vercel
+   - Displays friendly error messages when issues occur (e.g., failed API requests).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Project setup:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Prerequisites:
+
+- Node.js installed on your system.
+
+Installation Steps:
+
+1. Clone the repository:
+
+   - git clone <repository-url>
+   - cd <project-directory>
+
+2. Install dependencies:
+
+   - npm install
+
+3. Run the development server:
+
+   - npm run dev
+
+The app will be running at http://localhost:3000
