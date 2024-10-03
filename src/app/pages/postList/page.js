@@ -10,6 +10,9 @@ export default function PostList() {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1); // State for current page
+  const [totalPages, setTotalPages] = useState(0);
+  const postsPerPage = 10;
 
   useEffect(() => {
     async function fetchPosts() {
@@ -20,8 +23,12 @@ export default function PostList() {
           throw new Error("Failed to fetch posts");
         }
 
+        const totalPosts = res.headers.get("x-total-count");
+        setTotalPages(Math.ceil(totalPosts / postsPerPage));
+
         const data = await res.json();
-        setPosts(data.slice(0, 15));
+        // setPosts(data.slice(0, 15));
+        setPosts(data);
       } catch (error) {
         console.log("Error fetching posts: ", error);
         setError(error.message);
@@ -31,9 +38,21 @@ export default function PostList() {
     }
 
     fetchPosts();
-  }, []);
+  }, [currentPage]);
 
   //console.log(posts);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1); // Increment the current page
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1); // Decrement the current page
+    }
+  };
 
   if (loading) {
     return <p>Loading.....</p>;
@@ -64,6 +83,29 @@ export default function PostList() {
             </li>
           ))}
         </ul>
+
+        {/* Pagination controls */}
+        <div className="flex justify-center mt-6">
+          {currentPage > 1 && (
+            <button
+              onClick={handlePreviousPage}
+              className="px-4 py-2 mx-1 bg-blue-500 text-white rounded"
+            >
+              Previous
+            </button>
+          )}
+          <span className="px-4 py-2 mx-1 bg-gray-200 rounded">
+            Page {currentPage} of {totalPages}
+          </span>
+          {currentPage < totalPages && (
+            <button
+              onClick={handleNextPage}
+              className="px-4 py-2 mx-1 bg-blue-500 text-white rounded"
+            >
+              Next
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
