@@ -46,3 +46,11 @@ Installation Steps:
    - npm run dev
 
 The app will be running at http://localhost:3000
+
+Vercel deployed link: https://post-8xjaogbvw-abhay-modis-projects.vercel.app/
+
+below is a short video demo of the project:
+
+https://github.com/user-attachments/assets/0e5e814f-e597-4cfb-8158-46c5b2fcf3dc
+
+
