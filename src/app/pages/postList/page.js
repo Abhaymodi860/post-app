@@ -10,11 +10,6 @@ export default function PostList() {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [totalPages, setTotalPages] = useState(0);
-  const postsPerPage = 10;
-
-  const searchParams = useSearchParams();
-  const page = parseInt(searchParams.get("page") || 1);
 
   useEffect(() => {
     async function fetchPosts() {
@@ -25,13 +20,10 @@ export default function PostList() {
           throw new Error("Failed to fetch posts");
         }
 
-        const totalPosts = res.headers.get("x-total-count");
-        setTotalPages(Math.ceil(totalPosts / postsPerPage));
-
         const data = await res.json();
-        setPosts(data);
+        setPosts(data.slice(0, 15));
       } catch (error) {
-        console.log("Error fetching posts: ", err);
+        console.log("Error fetching posts: ", error);
         setError(error.message);
       } finally {
         setLoading(false);
@@ -39,7 +31,7 @@ export default function PostList() {
     }
 
     fetchPosts();
-  }, [page]);
+  }, []);
 
   //console.log(posts);
 
@@ -54,8 +46,8 @@ export default function PostList() {
   return (
     <div>
       <Head>
-        <title>Blog Posts - Page {page}</title>
-        <meta name="description" content={`Blogs posts page ${page}`} />
+        <title>Blog Posts</title>
+        <meta name="description" content="Blogs posts page" />
         <meta name="keywords" content="blog, next.js, posts, SEO" />
       </Head>
       <NavBar />
@@ -72,32 +64,6 @@ export default function PostList() {
             </li>
           ))}
         </ul>
-
-        {/* Pagination Controls */}
-        <div className="flex justify-center mt-6">
-          {/* Previous Page Button */}
-          {page > 1 && (
-            <Link href={`/?page=${page - 1}`}>
-              <a className="px-4 py-2 mx-1 bg-blue-500 text-white rounded">
-                Previous
-              </a>
-            </Link>
-          )}
-
-          {/* Page Number Display */}
-          <span className="px-4 py-2 mx-1 bg-green-500 rounded">
-            Page {page} of {totalPages + 1}
-          </span>
-
-          {/* Next Page Button */}
-          {page < totalPages && (
-            <Link href={`/?page=${page + 1}`}>
-              <a className="px-4 py-2 mx-1 bg-blue-500 text-white rounded">
-                Next
-              </a>
-            </Link>
-          )}
-        </div>
       </div>
     </div>
   );
